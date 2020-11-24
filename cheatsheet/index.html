@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<head>
+    <title>>Specificity in CSS</title> 
+    <link href="styles.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+    <header class="intro-content">
+        <h1>What is Specificity?</h1>
+        <p class="intro">If there are two or more conflicting CSS rules that point to the same element,
+        the browser follows some rules to determine which one is most specific and therefore wins out.</p>
+        <p class="intro">Think of specificity as a score/rank that determines which style declarations are ultimately 
+        applied to an element.</p>
+        <p class="intro">The universal selector (*) has low specificity, while ID selectors are highly specific!</p>
+        <p class="intro" id="note">Note: Specificity is a common reason why your CSS-rules don't apply to some elements, 
+        although you think they should.</p>
+    </header>
+        
+    <div class="hierarchy">
+        <h2>Specificity Hierarchy</h2>
+        <p>Every selector has its place in the specificity hierarchy. There are four categories which define 
+            the specificity level of a selector:</p>
+        <ul>
+            <li>Inline styles</li>
+            <li>IDs</li>
+            <li>Classes, attributes and pseudo-classes</li>
+            <li>Elements and pseudo-elements</li>
+        </ul>
+
+
+    </div>
+    <div class="tip">
+        <h2>How to Calculate Specificity?</h2>
+        <div class="box">
+            <p id="inbox1">Memorize how to calculate specificity! Start at 0, add 1000 for style attribute, add 100 for each ID, add 10
+            for each attribute, class or pseudo-class, add 1 for each element name or pseudo-element.
+            Consider these three code fragments:</p>
+            <p id="inbox2">A: <span style="color: red">h1</span><br><br>
+            B: <span style="color: yellowgreen">#content </span><span style="color: red">h1</span><br><br>
+            C: <span style="color: red">&lt;div </span><span style="color: aqua">id=</span><span style="color: yellowgreen">"content"</span><span style="color: red">&gt;</span><br>   
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red">&lt;h1 </span><span style="color:aqua">style=</span><span style="color:yellowgreen">"color: #ffffff"</span><span style="color: red">&gt;</span>Heading<span style="color:red">&lt;/h1&gt;</span><br>    
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: red">&lt;/div&gt;</span></p>
+            <p id="inbox3">The specificity of <strong>A</strong> is 1 (one element)
+                The specificity of <strong>B</strong> is 101 (one ID reference and one element)
+                The specificity of <strong>C</strong> is 1000 (inline styling)
+                
+                Since 1 < 101 < 1000, the third rule (<strong>C</strong>) has a greater level of specificity, and therefore will be applied.
+        </div>
+    </div>
+    <table>
+        <tr class="grid">
+            <th class="data0" colspan="3"><h2>Specificity Rules</h2></th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr class="grid">
+            <td class="data11" ><p>Equal specificity: the latest rule counts - If the same rule is written twice into the external style sheet, 
+                then the lower rule in the style sheet is closer to the element to be styled, and therefore will be applied</p></td>
+            <td class="data21"><p class="code"><span style="color:red">h1{</span> <span style="color:aqua">background-color:</span><span style="color:blueviolet">yellow;</span><span style="color: red">}</span> <br>
+             <span style="color:red">h1 {</span><span style="color: aqua">background-color:</span><span style="color:blueviolet">red;</span><span style="color:red">}</span></p></td>
+             <td class="data31"><p>The latter rule is always applied.</p></td>
+        </tr>
+        <tr class="grid">
+            <td class="data12"><p>ID selectors have a higher specificity than attribute selectors.</p></td>
+            <td class="data22"><p class="code"><span style="color: red">div#a {</span><span style="color: aqua">background-color:</span><span style="color: blueviolet">green;</span><span style="color:red">}<br>
+                #a {</span><span style="color: aqua">background-color:</span><span style="color:blueviolet">yellow;</span><span style="color: red">}<br>
+                div[id=a] {</span><span style="color: aqua">background-color:</span><span style="color:blueviolet">blue;</span><span style="color: red">}</span></p></td>
+                <td class="data32"><p>The first rule is more specific than the other two, and will be applied.</p></td>
+        </tr>
+        <tr class="grid">
+            <td class="data13"><p>Contextual selectors are more specific than a single element selector - The embedded style sheet is closer to the element to be styled.</p></td>
+            <td class="data23"><p class="code"><strong style="color:blue">From external CSS file:</strong><br>
+                <span style="color: red">#content h1 {</span><span style="color: aqua">background-color:</span><span style="color:blueviolet">red;</span><span style="color: red">}</span><br>
+                <strong style="color:blue">In HTML file:</strong><br>
+                    <span style="color:red">&lt;style&gt;</span><br>
+                    <span style="color:red">#content h1 {</span><br>
+                    <span style="color: aqua">background-color:</span><span style="color:blueviolet">yellow;</span> <br>
+                    <span style="color:red">}<br>
+            &lt;/style&gt;</span></p> </td>
+            <td class="data33"><p>The latter rule will be applied.</p></td>
+        </tr>
+        <tr class="grid">
+            <td class="data14">
+                <p>A class selector beats any number of element selectors - a class selector such as .intro beats h1, p, div, etc.</p>
+            </td>
+            <td class="data24"><p class="code"><span style="color:red">.intro {</span><span style="color: aqua">background-color:</span><span style="color:blueviolet">yellow;</span><span style="color: red">}<br>
+                h1 {</span><span style="color: aqua">background-color:</span><span style="color:blueviolet">red;</span><span style="color: red">}</span></p></td>
+                <td class="data34"><p>The universal selector and inherited values have a specificity of 0 - *, body * and similar have a zero specificity. Inherited values also have a specificity of 0. </p></td>
+        </tr>
+    </table>
+</body>
+<Footer class="footer">
+    <h4>Mr.Killchrist Cheatsheets</h4>
+</Footer>
+    
+    
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
